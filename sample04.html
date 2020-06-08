@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aaaa</title>
+    <style>
+        .error {
+            color: red;
+        }
+        .flip-list-move {
+            transition: transform 0.3s;
+        }
+        .alert {
+            background-color: #ffcccc;
+            padding: 10px;
+            border: 1px solid #ff3333;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <alert-box>aaaa</alert-box>
+        <p>{{ now }} <br>
+            <button v-on:click="time_refresh">現在時刻表示</button><br>
+        </p>
+
+        <p>
+            <button v-on:click="monster_shuffle">シャッフル</button><br>
+        </p>
+        <transition-group name="flip-list" tag="ul">
+            <li v-for="monster in monsters" v-bind:key="monster.img_url">
+                <img v-bind:src="monster.img_url" width="30%">
+            </li>
+        </transition-group>
+        <img v-bind:src="img_src" width="100%">
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script>
+        // Web components
+        // Vueの初期化前に定義しないと発動しない
+        Vue.component('alert-box', {
+            template: `
+            <div class="alert" v-on:click="warning">
+                <strong>Error!</strong>
+                <slot></slot>
+            </div>
+            `,
+            methods: {
+                warning: function () {
+                    alert("warning!!!");
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                now: "00:00:00",
+                error_class: "error",
+                img_src: "https://images-na.ssl-images-amazon.com/images/I/81DCDtzlLwL._AC_SL1280_.jpg",
+                monsters: [
+                    { img_url: "https://img.altema.jp/dq5/uploads/2019/06/2019y06m18d_1602453291.jpg" },
+                    { img_url: "https://img.altema.jp/dq5/uploads/2019/06/2019y06m18d_1603186896.jpg" },
+                    { img_url: "https://img.altema.jp/dq5/uploads/2019/06/2019y06m18d_1604393968.jpg" },
+                    { img_url: "https://img.altema.jp/dq5/uploads/2019/06/2019y06m18d_160447275.jpg" },
+                    { img_url: "https://img.altema.jp/dq5/uploads/2019/06/2019y06m18d_1604553669.jpg" },
+                ]
+            },
+            methods: {
+                time_refresh: function () {
+                    var date = new Date();
+                    this.now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                },
+                monster_shuffle: function() {
+                    this.monsters = _.shuffle(this.monsters);
+                }
+             }
+        });
+
+    </script>
+
+</body>
+</html>
