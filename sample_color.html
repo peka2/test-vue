@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>カラーピッカー</title>
+    <style>
+        body {
+            padding: 20px 0;
+        }
+        .panel {
+            height: 200px;
+            border: 1px solid #ccc;
+            background-color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="panel" :style="{backgroundColor: panelColor}"></div>
+        <div class="row mt-4">
+            <div class="col-4">
+                <label for="red">赤</label>
+                <input type="range" name="" id="red" class="custom-range" min="0" max="255">
+            </div>
+            <div class="col-4">
+                <label for="green">緑</label>
+                <input type="range" name="" id="green" class="custom-range" min="0" max="255">
+            </div>
+            <div class="col-4">
+                <label for="blue">青</label>
+                <input type="range" name="" id="blue" class="custom-range" min="0" max="255">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                red: 0,
+                green: 0,
+                blue: 0,
+            },
+            computed: {
+                panelColor: function() {
+                    return 'rgb(0, 0 , 0)';
+                },
+            },
+        });
+    </script>
+</body>
+</html>
